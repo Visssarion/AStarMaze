@@ -21,9 +21,27 @@ public class EnemyBehaviour : BehaviourTree
         SetCalmState = calm.GetChangeStateAction();
         anxietyState.falseState = calm;
 
+        AtomicState stand = new AtomicState(); // SetCalmState(0);
+        AtomicState sleep = new AtomicState(SleepFixed); // SetCalmState(1);
+        AtomicState patrol = new AtomicState(); // SetCalmState(2);
+        AtomicState stroll = new AtomicState(); // SetCalmState(3);
+        AtomicState talk = new AtomicState(); // SetCalmState(4);
+        calm.AddChild(stand);
+        calm.AddChild(sleep);
+        calm.AddChild(patrol);
+        calm.AddChild(stroll);
+        calm.AddChild(talk);
+
+
         CompoundState scared = new CompoundState(0, ScaredFixedUpdate, OnEnterScared);
         SetScaredState = scared.GetChangeStateAction();
         anxietyState.trueState = scared;
+
+        AtomicState screaming = new AtomicState(); // SetScaredState(0);
+        AtomicState runningAway = new AtomicState(); // SetScaredState(1);
+        scared.AddChild(screaming);
+        scared.AddChild(runningAway);
+
 
         AtomicState placeholderCalmState = new AtomicState();
         calm.AddChild(placeholderCalmState);
@@ -63,6 +81,10 @@ public class EnemyBehaviour : BehaviourTree
         Debug.Log("IM SCARED");
     }
 
+    private void SleepFixed()
+    {
+
+    }
     private void OnEnterScared()
     {
         Debug.Log("I BECAME SCARED");
