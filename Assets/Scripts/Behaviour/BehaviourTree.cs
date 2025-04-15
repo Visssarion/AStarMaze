@@ -18,6 +18,7 @@ namespace Behaviour
         {
             Setup();
             rootState.CallEnterState();
+            Debug.Log("Called setup state");
         }
 
         void FixedUpdate()

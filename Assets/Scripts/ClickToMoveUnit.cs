@@ -3,6 +3,7 @@ using UnityEngine;
 public class ClickToMoveUnit : Unit
 {
     private Camera mainCamera;
+    [SerializeField] private LayerMask groundLayer; 
 
     void Start()
     {
@@ -13,12 +14,14 @@ public class ClickToMoveUnit : Unit
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("RAY");
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
             {
+                if (target != null && target.name == "TempTarget")
+                    Destroy(target.gameObject);
+
                 GameObject targetObj = new GameObject("TempTarget");
                 targetObj.transform.position = hit.point;
                 target = targetObj.transform;

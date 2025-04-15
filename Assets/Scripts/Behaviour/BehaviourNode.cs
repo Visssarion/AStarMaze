@@ -159,6 +159,7 @@ namespace Behaviour
         public State falseState;
 
         private bool currentCondition;
+        public bool GetCurrentCondition() => currentCondition;
 
         private State GetCurrentState() { return currentCondition ? trueState : falseState; }
 
